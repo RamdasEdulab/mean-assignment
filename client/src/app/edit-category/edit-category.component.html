@@ -1,0 +1,44 @@
+
+<div class="title-group">
+    <h1 class="mat-h1">Edit category</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+  
+  
+  <div class="inner-wrapper">
+    <form [formGroup]="categoryForm" (ngSubmit)="updateCategoryForm()" #resetCategoryForm="ngForm" novalidate>
+     
+      <mat-card>
+        <div class="controlers-wrapper">
+         
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="category id" formControlName="category_id">
+            <mat-error *ngIf="handleError('category_id', 'required')">
+              You must provide a<strong>category id</strong>
+            </mat-error>
+          </mat-form-field>
+  
+         
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="category name" formControlName="category_name">
+            <mat-error *ngIf="handleError('category_name', 'required')">
+              You must provide a<strong>category name</strong>
+            </mat-error>
+          </mat-form-field>
+  
+          
+        </div>
+      </mat-card>
+  
+  
+     
+      <mat-card>
+        <div class="full-wrapper button-wrapper">
+          <div class="button-wrapper">
+            <button mat-flat-button color="warn">Update</button>
+          </div>
+        </div>
+      </mat-card>
+    </form>
+  </div>
+  
