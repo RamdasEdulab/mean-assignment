@@ -15,19 +15,29 @@ router.post('/add-product',(req, res) => {
     })
   });
   
-//   router.get('/',(req, res) => {
-//     Product.find((error, data) => {
-//       if (error) {
-//         return next(error)
-//       } else {
-//         res.json(data)
-//       }
-//     })
-//   })
+  // router.get('/',(req, res) => {
+  //   Product.find( {  limit: 5 }, function(error, data){
+  //     if (error) {
+  //       return next(error)
+  //     } else {
+  //       res.json(data)
+  //     }
+  //   })
+  // })
+  
   
 router.get('/',function(req,res){
+    var Pagenumber = parseInt(req.query.Pagenumber)
+    var Pagesize = parseInt(req.query.Pagesize)
+    var query = {}
+    if(Pagenumber < 0 || Pagenumber === 0) {
+          response = {"error" : true,"message" : "invalid page number, should start with 1"};
+          return res.json(response)
+    }
+    query.skip = Pagesize * (Pagenumber - 1)
+    query.limit = 10
     var view_data=[];
-    Product.find({}).populate('category_id', ['category_name']).exec(function(err,product){
+    Product.find({}).populate('category_id', ['category_name']).exec(query,function(err,product){
       if(err){
         console.error(err);
       }else if(product!='' || product!=undefined || product!='undefined' || product!=null){
